@@ -1,0 +1,20 @@
+<form [formGroup]="gitHubForm">
+    <input type="text" formControlName="gitHubUsername" (keyup.enter)="search()" class="form-control"
+        placeholder="Enter GitHub username">
+</form>
+<h1 class="display-4">{{this.service.user}} Followers</h1>
+
+<div class="row">
+    <div class="col-md-4" *ngFor="let follower of followers">
+        <div class="card">
+            <div class="card-body" style="display: flex; flex-direction: row;">
+                <img [src]="follower.avatar_url" class="card-img-top" style="width: 100px; height: 100px; order: 1">
+                <span style="margin-left: 10px; order: 2">
+                    <h5 class="card-title" style="margin-top: 10px;" [routerLink]="['/profile', follower.id]">
+                        {{follower.login}}</h5>
+                    <a href="{{follower.html_url}}" class="btn btn-primary" style="margin-top: 10px;">View</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
