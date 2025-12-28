@@ -8,6 +8,6 @@ export const routes: Routes = [
     { path: '', component: Home },
     { path: 'followers', component: Followers },
     { path: 'posts', component: Posts },
-    { path: 'profile/:id', component: Profile },
+    { path: 'profile/:id/:username', component: Profile },
     { path: '**', component: Notfound },
 ];

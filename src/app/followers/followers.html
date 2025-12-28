@@ -10,7 +10,7 @@
             <div class="card-body" style="display: flex; flex-direction: row;">
                 <img [src]="follower.avatar_url" class="card-img-top" style="width: 100px; height: 100px; order: 1">
                 <span style="margin-left: 10px; order: 2">
-                    <a [routerLink]="['/profile', follower.id]" class="card-title stretched-link"
+                    <a [routerLink]="['/profile', follower.id, follower.login]" class="card-title stretched-link"
                         style="margin-top: 10px; display: block;">{{follower.login}}</a>
                     <a href="{{follower.html_url}}" style="position: relative; z-index: 1;" class="btn btn-primary">
                         View on GitHub <i class="fa fa-github"></i>

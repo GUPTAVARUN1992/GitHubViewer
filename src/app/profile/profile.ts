@@ -9,11 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class Profile implements OnInit {
   id!: number;
+  username!: string;
   constructor(private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      console.log(this.id);
+      this.username = params['username'];
+      console.log('Hello, ' + this.username + ' with id ' + this.id);
     });
   }
 }
