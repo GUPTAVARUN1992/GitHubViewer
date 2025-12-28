@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GithubFollowersService } from '../services/github-followers.service';
 import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
-import { RouterLink } from "@angular/router";
-
+import { RouterLink, ActivatedRoute } from "@angular/router";
+import { combineLatest, map, switchMap } from 'rxjs';
 @Component({
   selector: 'app-followers',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
@@ -12,15 +12,26 @@ import { RouterLink } from "@angular/router";
 })
 export class Followers implements OnInit {
   followers: any[] = [];
-
+  page !: number;
+  order !: string;
+  id!: number;
   gitHubForm = new FormGroup({
     gitHubUsername: new FormControl('')
   });
 
-  constructor(public service: GithubFollowersService) { }
+  constructor(public service: GithubFollowersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getAllFollowers();
+    combineLatest([this.route.queryParams, this.route.params]).pipe(
+      switchMap(([queryParams, params]) => {
+        this.page = queryParams['page'];
+        this.order = queryParams['order'];
+        this.id = params['id'];
+        return this.service.getAll();
+      })
+    ).subscribe((followers) => this.followers = followers as any[]);
+
+    console.log(this.page, this.order, this.id);
   }
 
   getAllFollowers() {
